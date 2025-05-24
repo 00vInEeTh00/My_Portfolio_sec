@@ -34,6 +34,34 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+<style>
+.sent-message,
+.error-message,
+.loading {
+  display: none;
+  margin-top: 10px;
+}
+
+.error-message {
+  background-color: rgb(0, 0, 0)!important;
+  color: rgb(1, 1, 1)!important;
+  padding: 10px;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.sent-message {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  margin: 10px 0;
+  font-weight: bold;
+}
+</style>
+
+
+
 </head>
 
 <body class="contact-page">
@@ -131,7 +159,7 @@
                 <div class="social-links">
                   <a href="https://x.com/"><i class="bi bi-twitter-x"></i></a>
                   <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i></a>
-                  <a href="https://www.instagram.com/"><i class="bi bi-instagram"></i></a>
+                  <a href="https://www.instagram.com/m_vine3th_/?next=%2Fm_girl.__%2F"><i class="bi bi-instagram"></i></a>
                   <a href="https://in.linkedin.com/"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
@@ -140,7 +168,7 @@
 
         </div>
 
-        <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="600">
+        <form action="https://formspree.io/f/mbloenop" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="600">
           <div class="row gy-4">
 
             <div class="col-md-6">
@@ -160,9 +188,16 @@
             </div>
 
             <div class="col-md-12 text-center">
+
               <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your message has been sent. Thank you!</div>
+              <div style="display: none !important;" class="error-message">
+                       Your message has been sent. Thank you!
+              </div>
+
+              <div style="display: none !important;" class="sent-message">
+                       Your message has been sent. Thank you!
+              </div>
+             
 
               <button type="submit">Send Message</button>
             </div>
@@ -183,7 +218,7 @@
       <div class="social-links d-flex justify-content-center">
         <a href="https://x.com/"><i class="bi bi-twitter-x"></i></a>
         <a href="https://www.facebook.com/"><i class="bi bi-facebook"></i></a>
-        <a href="https://www.instagram.com/"><i class="bi bi-instagram"></i></a>
+        <a href="https://www.instagram.com/m_vine3th_/?next=%2Fm_girl.__%2F"><i class="bi bi-instagram"></i></a>
        
         <a href="https://in.linkedin.com/"><i class="bi bi-linkedin"></i></a>
       </div>
@@ -222,6 +257,48 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script>
+  const form = document.querySelector('.php-email-form');
+  const successMessage = document.querySelector('.sent-message');
+  const errorMessage = document.querySelector('.error-message');
+  const loading = document.querySelector('.loading');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    loading.style.display = 'block';
+    successMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      loading.style.display = 'none';
+
+      if (response.ok) {
+        successMessage.style.display = 'block';
+        form.reset();
+      } else {
+        errorMessage.textContent = "Something went wrong. Please try again.";
+        errorMessage.style.display = 'block';
+      }
+    } catch (error) {
+      loading.style.display = 'none';
+      errorMessage.textContent = "Network error. Please check your connection.";
+      errorMessage.style.display = 'block';
+    }
+  });
+</script>
+
+
+
 
 </body>
 
